@@ -82,6 +82,7 @@ Function Authenticate {
     $hash.AuthToken = @{"Authorization" = "Bearer $($hash.token)"}
 
     $Signedin.text = "User: " + (get-mgcontext).account
+    $hash.domain = ((get-mgcontext).account).substring(((get-mgcontext).account).indexof("@"))
 }
 
 function Get-JWTDetails {
@@ -158,7 +159,7 @@ Function SearchDevice
 
 
     If($($hash.textBox.Text) -like "*@*"){
-        If(($($hash.textBox.Text).ToLower()).Substring($($hash.textBox.Text).Length - 8) -eq "@ing.com"){
+        If(($($hash.textBox.Text).ToLower()).Substring($($hash.textBox.Text).Length - 8) -eq $Hash.domain){
 
             $hash.OutputBox.Selectioncolor = "Black"
             $hash.OutputBox.AppendText("`r`nGetting device(s) of user")
